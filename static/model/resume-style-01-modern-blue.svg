@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="1260" viewBox="0 0 900 1260">
+  <rect width="900" height="1260" fill="#edf3f8"/>
+  <rect x="90" y="60" width="720" height="1140" rx="10" fill="#fff" stroke="#dce7f2"/>
+  <rect x="140" y="120" width="620" height="210" rx="10" fill="#f6f9ff" stroke="#dbe7f6"/>
+  <text x="178" y="165" fill="#2f63f6" font-family="Microsoft YaHei, sans-serif" font-size="16" font-weight="700">CANDIDATE PROFILE</text>
+  <text x="176" y="230" fill="#172033" font-family="Microsoft YaHei, sans-serif" font-size="58" font-weight="800">张明</text>
+  <text x="180" y="280" fill="#546173" font-family="Microsoft YaHei, sans-serif" font-size="24" font-weight="700">Vue 前端工程师</text>
+  <g font-family="Microsoft YaHei, sans-serif" font-size="15" fill="#526071">
+    <rect x="475" y="150" width="220" height="34" rx="17" fill="#fff" stroke="#e0e8f2"/>
+    <text x="494" y="172">zhangming@example.com</text>
+    <rect x="475" y="202" width="220" height="34" rx="17" fill="#fff" stroke="#e0e8f2"/>
+    <text x="494" y="224">138 0000 0000</text>
+    <rect x="475" y="254" width="220" height="34" rx="17" fill="#fff" stroke="#e0e8f2"/>
+    <text x="494" y="276">上海</text>
+  </g>
+  <g font-family="Microsoft YaHei, sans-serif">
+    <text x="155" y="405" fill="#2f63f6" font-size="15" font-weight="800">01</text>
+    <text x="155" y="435" fill="#1e2938" font-size="21" font-weight="800">个人摘要</text>
+    <text x="295" y="405" fill="#3f4b5a" font-size="18">
+      <tspan x="295" dy="0">5 年前端开发经验，长期负责中后台与数据可视化项目，</tspan>
+      <tspan x="295" dy="32">熟悉 Vue3、组件化设计、性能优化和复杂表单工程。</tspan>
+    </text>
+    <line x1="150" y1="505" x2="750" y2="505" stroke="#e9edf3"/>
+    <text x="155" y="560" fill="#2f63f6" font-size="15" font-weight="800">02</text>
+    <text x="155" y="590" fill="#1e2938" font-size="21" font-weight="800">核心技能</text>
+  </g>
+  <g font-family="Microsoft YaHei, sans-serif" font-size="15" font-weight="700" fill="#2f63f6">
+    <rect x="295" y="540" width="70" height="32" rx="16" fill="#f7faff" stroke="#2f63f6"/>
+    <text x="315" y="562">Vue3</text>
+    <rect x="375" y="540" width="120" height="32" rx="16" fill="#f7faff" stroke="#2f63f6"/>
+    <text x="395" y="562">JavaScript</text>
+    <rect x="505" y="540" width="65" height="32" rx="16" fill="#f7faff" stroke="#2f63f6"/>
+    <text x="525" y="562">Vite</text>
+    <rect x="580" y="540" width="72" height="32" rx="16" fill="#f7faff" stroke="#2f63f6"/>
+    <text x="600" y="562">Pinia</text>
+    <rect x="295" y="586" width="90" height="32" rx="16" fill="#f7faff" stroke="#2f63f6"/>
+    <text x="315" y="608">ECharts</text>
+    <rect x="395" y="586" width="70" height="32" rx="16" fill="#f7faff" stroke="#2f63f6"/>
+    <text x="415" y="608">CSS3</text>
+  </g>
+  <line x1="150" y1="680" x2="750" y2="680" stroke="#e9edf3"/>
+  <text x="155" y="735" fill="#2f63f6" font-family="Microsoft YaHei, sans-serif" font-size="15" font-weight="800">03</text>
+  <text x="155" y="765" fill="#1e2938" font-family="Microsoft YaHei, sans-serif" font-size="21" font-weight="800">工作经历</text>
+  <g font-family="Microsoft YaHei, sans-serif">
+    <rect x="295" y="710" width="455" height="118" rx="8" fill="#fff" stroke="#e6edf5"/>
+    <circle cx="323" cy="743" r="5" fill="#2f63f6"/>
+    <text x="345" y="748" fill="#172033" font-size="20" font-weight="800">云舟科技</text>
+    <text x="620" y="748" fill="#647084" font-size="14" font-weight="700">2022.04 - 至今</text>
+    <text x="345" y="780" fill="#2f63f6" font-size="16" font-weight="800">高级前端工程师</text>
+    <text x="345" y="810" fill="#4a5567" font-size="15">负责复杂表单、权限流转和数据可视化体验。</text>
+    <rect x="295" y="870" width="455" height="118" rx="8" fill="#fff" stroke="#e6edf5"/>
+    <circle cx="323" cy="903" r="5" fill="#2f63f6"/>
+    <text x="345" y="908" fill="#172033" font-size="20" font-weight="800">星环数据</text>
+    <text x="600" y="908" fill="#647084" font-size="14" font-weight="700">2019.07 - 2022.03</text>
+    <text x="345" y="940" fill="#2f63f6" font-size="16" font-weight="800">前端工程师</text>
+    <text x="345" y="970" fill="#4a5567" font-size="15">参与 BI 报表系统建设，封装图表配置器。</text>
+  </g>
+</svg>

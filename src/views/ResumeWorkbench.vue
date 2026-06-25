@@ -1,14 +1,32 @@
 <template>
-  <main class="app-shell">
+  <main
+    class="app-shell"
+    :class="{
+      'sidebar-collapsed': isSidebarCollapsed,
+      'preview-mode': isPreviewMode,
+      'preview-expanded': isPreviewExpanded
+    }"
+  >
     <aside class="resume-sidebar">
-      <div class="brand-block">
-        <p class="eyebrow">Resume Workbench</p>
-        <h1>简历工作台</h1>
+      <div class="sidebar-head">
+        <div class="brand-block">
+          <p class="eyebrow">Resume Workbench</p>
+          <h1>简历工作台</h1>
+        </div>
+        <button
+          class="sidebar-toggle"
+          type="button"
+          :title="isSidebarCollapsed ? '展开工作台' : '收起工作台'"
+          @click="toggleSidebar"
+        >
+          <PanelLeftOpen v-if="isSidebarCollapsed" :size="18" />
+          <PanelLeftClose v-else :size="18" />
+        </button>
       </div>
 
       <button class="primary-action" type="button" @click="createResume">
         <Plus :size="18" />
-        新建简历
+        <span>新建简历</span>
       </button>
 
       <div class="resume-list" aria-label="简历列表">
@@ -26,6 +44,15 @@
       </div>
     </aside>
 
+    <button
+      class="sidebar-float-toggle"
+      type="button"
+      title="灞曞紑宸ヤ綔鍙?"
+      @click="toggleSidebar"
+    >
+      <PanelLeftOpen :size="18" />
+    </button>
+
     <section v-if="currentResume" class="workspace">
       <header class="workspace-toolbar">
         <div>
@@ -38,6 +65,16 @@
           </button>
           <button class="icon-button danger" type="button" title="删除简历" @click="deleteResume">
             <Trash2 :size="18" />
+          </button>
+          <button
+            class="ghost-action preview-action"
+            :class="{ active: isPreviewMode }"
+            type="button"
+            :title="isPreviewMode ? '返回编辑' : '预览简历'"
+            @click="previewResume"
+          >
+            <Eye :size="18" />
+            {{ isPreviewMode ? '编辑' : '预览' }}
           </button>
           <button class="ghost-action" type="button" @click="exportWord">
             <FileText :size="18" />
@@ -103,9 +140,6 @@
           <section class="editor-section">
             <div class="section-heading">
               <h3>工作经历</h3>
-              <button class="small-action" type="button" @click="resumeStore.addExperience">
-                <Plus :size="16" />
-              </button>
             </div>
             <article v-for="(item, index) in currentResume.experiences" :key="item.id" class="entry-editor">
               <button class="entry-remove" type="button" title="删除经历" @click="resumeStore.removeExperience(index)">
@@ -136,14 +170,14 @@
                 <textarea v-model="item.description" rows="4"></textarea>
               </label>
             </article>
+            <button class="entry-add-bottom" type="button" aria-label="Add experience" @click="resumeStore.addExperience">
+              <Plus :size="18" />
+            </button>
           </section>
 
           <section class="editor-section">
             <div class="section-heading">
               <h3>项目经历</h3>
-              <button class="small-action" type="button" @click="resumeStore.addProject">
-                <Plus :size="16" />
-              </button>
             </div>
             <article v-for="(item, index) in currentResume.projects" :key="item.id" class="entry-editor">
               <button class="entry-remove" type="button" title="删除项目" @click="resumeStore.removeProject(index)">
@@ -164,14 +198,14 @@
                 <textarea v-model="item.description" rows="4"></textarea>
               </label>
             </article>
+            <button class="entry-add-bottom" type="button" aria-label="Add project" @click="resumeStore.addProject">
+              <Plus :size="18" />
+            </button>
           </section>
 
           <section class="editor-section">
             <div class="section-heading">
               <h3>教育经历</h3>
-              <button class="small-action" type="button" @click="resumeStore.addEducation">
-                <Plus :size="16" />
-              </button>
             </div>
             <article v-for="(item, index) in currentResume.educations" :key="item.id" class="entry-editor">
               <button class="entry-remove" type="button" title="删除教育经历" @click="resumeStore.removeEducation(index)">
@@ -198,37 +232,50 @@
                 </label>
               </div>
             </article>
+            <button class="entry-add-bottom" type="button" aria-label="Add education" @click="resumeStore.addEducation">
+              <Plus :size="18" />
+            </button>
           </section>
         </form>
 
-        <section class="preview-panel" aria-label="简历预览">
+        <section ref="previewPanel" class="preview-panel" aria-label="简历预览">
           <div ref="resumePaper" class="resume-paper">
             <header class="paper-header">
-              <div>
+              <div class="paper-title-block">
+                <span class="paper-kicker">Candidate Profile</span>
                 <h2>{{ currentResume.basics.name }}</h2>
                 <p>{{ currentResume.basics.role }}</p>
               </div>
-              <ul>
-                <li>{{ currentResume.basics.email }}</li>
-                <li>{{ currentResume.basics.phone }}</li>
-                <li>{{ currentResume.basics.city }}</li>
+              <ul class="paper-contact">
+                <li>
+                  <Mail :size="14" />
+                  <span>{{ currentResume.basics.email }}</span>
+                </li>
+                <li>
+                  <Phone :size="14" />
+                  <span>{{ currentResume.basics.phone }}</span>
+                </li>
+                <li>
+                  <MapPin :size="14" />
+                  <span>{{ currentResume.basics.city }}</span>
+                </li>
               </ul>
             </header>
 
             <section class="paper-section">
-              <h3>个人摘要</h3>
+              <h3><span>01</span>个人摘要</h3>
               <p>{{ currentResume.basics.summary }}</p>
             </section>
 
             <section class="paper-section">
-              <h3>技能</h3>
+              <h3><span>02</span>核心技能</h3>
               <div class="skill-cloud">
                 <span v-for="skill in skillList" :key="skill">{{ skill }}</span>
               </div>
             </section>
 
             <section class="paper-section">
-              <h3>工作经历</h3>
+              <h3><span>03</span>工作经历</h3>
               <article v-for="item in currentResume.experiences" :key="item.id" class="paper-entry">
                 <div>
                   <strong>{{ item.company }}</strong>
@@ -240,7 +287,7 @@
             </section>
 
             <section class="paper-section">
-              <h3>项目经历</h3>
+              <h3><span>04</span>项目经历</h3>
               <article v-for="item in currentResume.projects" :key="item.id" class="paper-entry">
                 <div>
                   <strong>{{ item.name }}</strong>
@@ -251,7 +298,7 @@
             </section>
 
             <section class="paper-section">
-              <h3>教育经历</h3>
+              <h3><span>05</span>教育经历</h3>
               <article v-for="item in currentResume.educations" :key="item.id" class="paper-entry compact">
                 <div>
                   <strong>{{ item.school }}</strong>
@@ -273,7 +320,19 @@ import { storeToRefs } from 'pinia'
 import { useRoute, useRouter } from 'vue-router'
 import html2canvas from 'html2canvas'
 import { jsPDF } from 'jspdf'
-import { Copy, Download, FileText, Plus, Trash2 } from 'lucide-vue-next'
+import {
+  Copy,
+  Download,
+  Eye,
+  FileText,
+  Mail,
+  MapPin,
+  PanelLeftClose,
+  PanelLeftOpen,
+  Phone,
+  Plus,
+  Trash2
+} from 'lucide-vue-next'
 import { useResumeStore } from '../stores/resumeStore'
 
 const route = useRoute()
@@ -281,6 +340,14 @@ const router = useRouter()
 const resumeStore = useResumeStore()
 const { resumes, currentId, currentResume, skillList } = storeToRefs(resumeStore)
 const resumePaper = ref(null)
+const previewPanel = ref(null)
+const isSidebarCollapsed = ref(false)
+const isPreviewMode = ref(false)
+const isPreviewExpanded = ref(false)
+const isPreviewAnimating = ref(false)
+let previewTimer = 0
+let previewAnimationTimer = 0
+const previewAnimationMs = 260
 
 watch(
   () => route.params.resumeId,
@@ -302,6 +369,10 @@ watch(
 
 function touchResume() {
   resumeStore.touchCurrentResume()
+}
+
+function toggleSidebar() {
+  isSidebarCollapsed.value = !isSidebarCollapsed.value
 }
 
 function selectResume(id) {
@@ -341,6 +412,81 @@ function downloadBlob(blob, fileName) {
   link.download = fileName
   link.click()
   URL.revokeObjectURL(link.href)
+}
+
+function wait(ms) {
+  return new Promise((resolve) => {
+    previewTimer = window.setTimeout(resolve, ms)
+  })
+}
+
+async function animatePreviewLayout(updateLayout) {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    updateLayout()
+    await nextTick()
+    return
+  }
+
+  if (previewPanel.value === null) {
+    updateLayout()
+    await nextTick()
+    return
+  }
+
+  const panel = previewPanel.value
+  const firstRect = panel.getBoundingClientRect()
+
+  updateLayout()
+  await nextTick()
+
+  const lastRect = panel.getBoundingClientRect()
+  const deltaX = firstRect.left - lastRect.left
+  const deltaY = firstRect.top - lastRect.top
+  const scaleX = firstRect.width / lastRect.width
+
+  panel.style.transition = 'none'
+  panel.style.transformOrigin = 'top left'
+  panel.style.transform = `translate(${deltaX}px, ${deltaY}px) scaleX(${scaleX})`
+
+  await new Promise((resolve) => {
+    window.requestAnimationFrame(() => {
+      panel.style.transition = `transform ${previewAnimationMs}ms cubic-bezier(0.22, 1, 0.36, 1)`
+      panel.style.transform = ''
+      previewAnimationTimer = window.setTimeout(resolve, previewAnimationMs)
+    })
+  })
+
+  panel.style.transition = ''
+  panel.style.transformOrigin = ''
+}
+
+async function previewResume() {
+  if (isPreviewAnimating.value) {
+    return
+  }
+
+  isPreviewAnimating.value = true
+  window.clearTimeout(previewTimer)
+  window.clearTimeout(previewAnimationTimer)
+
+  try {
+    if (!isPreviewMode.value) {
+      isPreviewMode.value = true
+      await wait(110)
+      await animatePreviewLayout(() => {
+        isPreviewExpanded.value = true
+      })
+      return
+    }
+
+    await animatePreviewLayout(() => {
+      isPreviewExpanded.value = false
+    })
+    await wait(90)
+    isPreviewMode.value = false
+  } finally {
+    isPreviewAnimating.value = false
+  }
 }
 
 function exportWord() {

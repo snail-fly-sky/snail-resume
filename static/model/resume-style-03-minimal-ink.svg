@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="1260" viewBox="0 0 900 1260">
+  <rect width="900" height="1260" fill="#f6f7f8"/>
+  <rect x="90" y="60" width="720" height="1140" rx="4" fill="#fff" stroke="#dfe3e8"/>
+  <text x="150" y="175" fill="#111827" font-family="Microsoft YaHei, sans-serif" font-size="64" font-weight="800">张明</text>
+  <text x="154" y="245" fill="#111827" font-family="Microsoft YaHei, sans-serif" font-size="23" font-weight="700">Vue 前端工程师</text>
+  <text x="154" y="305" fill="#606b7a" font-family="Microsoft YaHei, sans-serif" font-size="16">zhangming@example.com   /   138 0000 0000   /   上海</text>
+  <line x1="150" y1="370" x2="750" y2="370" stroke="#111827" stroke-width="3"/>
+  <g font-family="Microsoft YaHei, sans-serif">
+    <text x="150" y="445" fill="#111827" font-size="18" font-weight="800">个人摘要</text>
+    <text x="335" y="445" fill="#313b49" font-size="20">
+      <tspan x="335" dy="0">5 年前端开发经验，长期负责中后台与数据可视化项目，</tspan>
+      <tspan x="335" dy="34">熟悉 Vue3、组件化设计、性能优化和复杂表单工程。</tspan>
+    </text>
+    <line x1="150" y1="555" x2="750" y2="555" stroke="#e4e7eb"/>
+    <text x="150" y="635" fill="#111827" font-size="18" font-weight="800">核心技能</text>
+    <text x="335" y="635" fill="#313b49" font-size="20">
+      <tspan x="335" dy="0">Vue3 / JavaScript / Vite / Pinia</tspan>
+      <tspan x="335" dy="34">Element Plus / ECharts / HTML5 / CSS3</tspan>
+    </text>
+    <line x1="150" y1="745" x2="750" y2="745" stroke="#e4e7eb"/>
+    <text x="150" y="825" fill="#111827" font-size="18" font-weight="800">工作经历</text>
+    <text x="335" y="825" fill="#111827" font-size="23" font-weight="800">云舟科技</text>
+    <text x="615" y="825" fill="#606b7a" font-size="15">2022.04 - 至今</text>
+    <text x="335" y="870" fill="#111827" font-size="18" font-weight="800">高级前端工程师</text>
+    <text x="335" y="910" fill="#313b49" font-size="18">负责招聘管理平台核心模块，设计可复用表单组件与权限控制方案。</text>
+    <text x="335" y="1015" fill="#111827" font-size="23" font-weight="800">星环数据</text>
+    <text x="590" y="1015" fill="#606b7a" font-size="15">2019.07 - 2022.03</text>
+    <text x="335" y="1060" fill="#111827" font-size="18" font-weight="800">前端工程师</text>
+    <text x="335" y="1100" fill="#313b49" font-size="18">参与 BI 报表系统建设，封装图表配置器与拖拽布局能力。</text>
+  </g>
+</svg>

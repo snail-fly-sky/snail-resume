@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="1260" viewBox="0 0 900 1260">
+  <rect width="900" height="1260" fill="#f0eee7"/>
+  <rect x="90" y="60" width="720" height="1140" fill="#fffdf7" stroke="#ded8c7"/>
+  <rect x="90" y="60" width="210" height="1140" fill="#182a2e"/>
+  <text x="140" y="175" fill="#fffaf0" font-family="Microsoft YaHei, sans-serif" font-size="58" font-weight="800">张明</text>
+  <text x="143" y="235" fill="#e4b866" font-family="Microsoft YaHei, sans-serif" font-size="22" font-weight="700">Vue 前端工程师</text>
+  <line x1="140" y1="305" x2="245" y2="305" stroke="#e4b866" stroke-width="3"/>
+  <g fill="#c8d2ce" font-family="Microsoft YaHei, sans-serif" font-size="15">
+    <text x="143" y="350">上海</text>
+    <text x="143" y="390">138 0000 0000</text>
+    <text x="143" y="430">zhangming@example.com</text>
+  </g>
+  <g font-family="Microsoft YaHei, sans-serif">
+    <text x="355" y="150" fill="#e4b866" font-size="18" font-weight="800">Profile</text>
+    <text x="355" y="195" fill="#39464b" font-size="19">
+      <tspan x="355" dy="0">5 年前端开发经验，熟悉 Vue3、组件化设计、</tspan>
+      <tspan x="355" dy="32">性能优化和复杂表单工程。</tspan>
+    </text>
+    <text x="355" y="330" fill="#e4b866" font-size="18" font-weight="800">Skills</text>
+  </g>
+  <g font-family="Microsoft YaHei, sans-serif" font-size="15" font-weight="700" fill="#182a2e">
+    <rect x="355" y="370" width="70" height="32" rx="16" fill="#f7f1df" stroke="#182a2e"/>
+    <text x="375" y="392">Vue3</text>
+    <rect x="435" y="370" width="116" height="32" rx="16" fill="#f7f1df" stroke="#182a2e"/>
+    <text x="455" y="392">JavaScript</text>
+    <rect x="562" y="370" width="64" height="32" rx="16" fill="#f7f1df" stroke="#182a2e"/>
+    <text x="582" y="392">Vite</text>
+    <rect x="355" y="416" width="72" height="32" rx="16" fill="#f7f1df" stroke="#182a2e"/>
+    <text x="375" y="438">Pinia</text>
+    <rect x="437" y="416" width="90" height="32" rx="16" fill="#f7f1df" stroke="#182a2e"/>
+    <text x="457" y="438">ECharts</text>
+  </g>
+  <text x="355" y="560" fill="#e4b866" font-family="Microsoft YaHei, sans-serif" font-size="18" font-weight="800">Experience</text>
+  <line x1="355" y1="600" x2="735" y2="600" stroke="#d9d0bd"/>
+  <g font-family="Microsoft YaHei, sans-serif">
+    <text x="355" y="655" fill="#182a2e" font-size="24" font-weight="800">云舟科技</text>
+    <text x="595" y="655" fill="#7f8a8d" font-size="14" font-weight="700">2022.04 - 至今</text>
+    <text x="355" y="700" fill="#c07332" font-size="18" font-weight="800">高级前端工程师</text>
+    <text x="355" y="740" fill="#445053" font-size="17">负责招聘管理平台核心模块，设计可复用表单组件。</text>
+    <line x1="355" y1="830" x2="735" y2="830" stroke="#d9d0bd"/>
+    <text x="355" y="885" fill="#182a2e" font-size="24" font-weight="800">星环数据</text>
+    <text x="575" y="885" fill="#7f8a8d" font-size="14" font-weight="700">2019.07 - 2022.03</text>
+    <text x="355" y="930" fill="#c07332" font-size="18" font-weight="800">前端工程师</text>
+    <text x="355" y="970" fill="#445053" font-size="17">参与 BI 报表系统建设，封装图表配置器。</text>
+  </g>
+</svg>
