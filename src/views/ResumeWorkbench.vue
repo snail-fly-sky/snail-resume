@@ -315,9 +315,8 @@
 </template>
 
 <script setup>
-import { nextTick, ref, watch } from 'vue'
+import { nextTick, ref } from 'vue'
 import { storeToRefs } from 'pinia'
-import { useRoute, useRouter } from 'vue-router'
 import html2canvas from 'html2canvas'
 import { jsPDF } from 'jspdf'
 import {
@@ -335,8 +334,6 @@ import {
 } from 'lucide-vue-next'
 import { useResumeStore } from '../stores/resumeStore'
 
-const route = useRoute()
-const router = useRouter()
 const resumeStore = useResumeStore()
 const { resumes, currentId, currentResume, skillList } = storeToRefs(resumeStore)
 const resumePaper = ref(null)
@@ -349,24 +346,6 @@ let previewTimer = 0
 let previewAnimationTimer = 0
 const previewAnimationMs = 260
 
-watch(
-  () => route.params.resumeId,
-  (resumeId) => {
-    if (resumeId === undefined) {
-      router.replace({ name: 'resume-detail', params: { resumeId: resumeStore.currentId } })
-      return
-    }
-
-    if (resumeStore.hasResume(resumeId)) {
-      resumeStore.setCurrentId(resumeId)
-      return
-    }
-
-    router.replace({ name: 'resume-detail', params: { resumeId: resumeStore.currentId } })
-  },
-  { immediate: true }
-)
-
 function touchResume() {
   resumeStore.touchCurrentResume()
 }
@@ -376,23 +355,20 @@ function toggleSidebar() {
 }
 
 function selectResume(id) {
-  router.push({ name: 'resume-detail', params: { resumeId: id } })
+  resumeStore.setCurrentId(id)
 }
 
 function createResume() {
-  const id = resumeStore.createResume()
-  router.push({ name: 'resume-detail', params: { resumeId: id } })
+  resumeStore.createResume()
 }
 
 function duplicateResume() {
-  const id = resumeStore.duplicateCurrentResume()
-  router.push({ name: 'resume-detail', params: { resumeId: id } })
+  resumeStore.duplicateCurrentResume()
 }
 
 function deleteResume() {
   try {
-    const id = resumeStore.deleteCurrentResume()
-    router.push({ name: 'resume-detail', params: { resumeId: id } })
+    resumeStore.deleteCurrentResume()
   } catch (error) {
     alert(error.message)
   }

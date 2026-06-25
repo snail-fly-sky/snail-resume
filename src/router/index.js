@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import ResumeWorkbench from '../views/ResumeWorkbench.vue'
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
@@ -10,9 +10,8 @@ const router = createRouter({
       component: ResumeWorkbench
     },
     {
-      path: '/resumes/:resumeId',
-      name: 'resume-detail',
-      component: ResumeWorkbench
+      path: '/:pathMatch(.*)*',
+      redirect: '/'
     }
   ]
 })
