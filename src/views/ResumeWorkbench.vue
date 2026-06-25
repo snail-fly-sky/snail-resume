@@ -414,6 +414,245 @@ function downloadBlob(blob, fileName) {
   URL.revokeObjectURL(link.href)
 }
 
+function escapeWordHtml(content) {
+  return content
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
+}
+
+function formatWordText(content) {
+  return escapeWordHtml(content).replace(/\n/g, '<br />')
+}
+
+function buildWordHtml() {
+  const resume = currentResume.value
+  const skills = skillList.value.map((skill) => `<span class="skill-pill">${escapeWordHtml(skill)}</span>`).join('')
+  const experiences = resume.experiences
+    .map(
+      (item) => `
+        <div class="entry">
+          <table class="entry-head" cellspacing="0" cellpadding="0">
+            <tr>
+              <td><strong>${escapeWordHtml(item.company)}</strong></td>
+              <td class="entry-time">${escapeWordHtml(item.start)} - ${escapeWordHtml(item.end)}</td>
+            </tr>
+          </table>
+          <p class="entry-role">${escapeWordHtml(item.position)}</p>
+          <p>${formatWordText(item.description)}</p>
+        </div>
+      `
+    )
+    .join('')
+  const projects = resume.projects
+    .map(
+      (item) => `
+        <div class="entry">
+          <table class="entry-head" cellspacing="0" cellpadding="0">
+            <tr>
+              <td><strong>${escapeWordHtml(item.name)}</strong></td>
+              <td class="entry-time">${escapeWordHtml(item.role)}</td>
+            </tr>
+          </table>
+          <p>${formatWordText(item.description)}</p>
+        </div>
+      `
+    )
+    .join('')
+  const educations = resume.educations
+    .map(
+      (item) => `
+        <div class="entry compact">
+          <table class="entry-head" cellspacing="0" cellpadding="0">
+            <tr>
+              <td><strong>${escapeWordHtml(item.school)}</strong></td>
+              <td class="entry-time">${escapeWordHtml(item.period)}</td>
+            </tr>
+          </table>
+          <p>${escapeWordHtml(item.degree)} · ${escapeWordHtml(item.major)}</p>
+        </div>
+      `
+    )
+    .join('')
+
+  return `
+    <html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word">
+      <head>
+        <meta charset="UTF-8" />
+        <meta name="ProgId" content="Word.Document" />
+        <style>
+          @page WordSection1 { size: 595.3pt 841.9pt; margin: 36pt; }
+          body {
+            margin: 0;
+            color: #18202b;
+            font-family: "Microsoft YaHei", "DengXian", sans-serif;
+            font-size: 10.5pt;
+            line-height: 1.62;
+          }
+          .word-page {
+            width: 100%;
+            border-left: 8pt solid #2f63f6;
+            padding: 0 0 0 22pt;
+          }
+          .top-rule {
+            height: 5pt;
+            background: #2f63f6;
+            border-left: 120pt solid #c7ef38;
+            border-right: 76pt solid #ff684f;
+            margin-bottom: 22pt;
+          }
+          .hero {
+            width: 100%;
+            border: 1pt solid #dfe7f1;
+            background: #f8fbff;
+            padding: 18pt;
+          }
+          .kicker {
+            color: #2f63f6;
+            font-size: 8.5pt;
+            font-weight: bold;
+            text-transform: uppercase;
+          }
+          h1 {
+            margin: 6pt 0 3pt;
+            color: #15191f;
+            font-size: 30pt;
+            line-height: 1.08;
+            font-weight: bold;
+          }
+          .role {
+            margin: 0 0 12pt;
+            color: #4f5f73;
+            font-size: 12pt;
+            font-weight: bold;
+          }
+          .contact {
+            width: 100%;
+            border-collapse: collapse;
+          }
+          .contact td {
+            width: 33.33%;
+            border: 1pt solid #dfe7f1;
+            background: #ffffff;
+            padding: 6pt 8pt;
+            color: #526071;
+            font-size: 9pt;
+          }
+          .section {
+            width: 100%;
+            border-top: 1pt solid #e9edf3;
+            margin-top: 18pt;
+            padding-top: 14pt;
+          }
+          .section-title {
+            width: 100%;
+            margin-bottom: 8pt;
+          }
+          .section-index {
+            width: 32pt;
+            color: #2f63f6;
+            font-size: 8.5pt;
+            font-weight: bold;
+          }
+          .section-name {
+            color: #1e2938;
+            font-size: 11pt;
+            font-weight: bold;
+          }
+          p {
+            margin: 0 0 8pt;
+          }
+          .skill-pill {
+            display: inline-block;
+            margin: 0 5pt 6pt 0;
+            padding: 4pt 8pt;
+            border: 1pt solid #dfe7f1;
+            background: #f7faff;
+            color: #273447;
+            font-size: 9pt;
+            font-weight: bold;
+          }
+          .entry {
+            border-bottom: 1pt solid #edf1f6;
+            margin-bottom: 12pt;
+            padding-bottom: 10pt;
+          }
+          .entry.compact {
+            margin-bottom: 8pt;
+            padding-bottom: 8pt;
+          }
+          .entry-head {
+            width: 100%;
+            border-collapse: collapse;
+          }
+          .entry-head td {
+            padding: 0 0 3pt;
+            vertical-align: top;
+          }
+          .entry strong {
+            color: #18202b;
+            font-size: 10.5pt;
+          }
+          .entry-time {
+            width: 35%;
+            color: #647084;
+            font-size: 8.5pt;
+            text-align: right;
+          }
+          .entry-role {
+            color: #2f63f6;
+            font-weight: bold;
+          }
+        </style>
+      </head>
+      <body>
+        <div class="word-page">
+          <div class="top-rule"></div>
+          <div class="hero">
+            <div class="kicker">Candidate Profile</div>
+            <h1>${escapeWordHtml(resume.basics.name)}</h1>
+            <p class="role">${escapeWordHtml(resume.basics.role)}</p>
+            <table class="contact" cellspacing="0" cellpadding="0">
+              <tr>
+                <td>${escapeWordHtml(resume.basics.email)}</td>
+                <td>${escapeWordHtml(resume.basics.phone)}</td>
+                <td>${escapeWordHtml(resume.basics.city)}</td>
+              </tr>
+            </table>
+          </div>
+
+          <div class="section">
+            <table class="section-title" cellspacing="0" cellpadding="0"><tr><td class="section-index">01</td><td class="section-name">个人摘要</td></tr></table>
+            <p>${formatWordText(resume.basics.summary)}</p>
+          </div>
+
+          <div class="section">
+            <table class="section-title" cellspacing="0" cellpadding="0"><tr><td class="section-index">02</td><td class="section-name">核心技能</td></tr></table>
+            <p>${skills}</p>
+          </div>
+
+          <div class="section">
+            <table class="section-title" cellspacing="0" cellpadding="0"><tr><td class="section-index">03</td><td class="section-name">工作经历</td></tr></table>
+            ${experiences}
+          </div>
+
+          <div class="section">
+            <table class="section-title" cellspacing="0" cellpadding="0"><tr><td class="section-index">04</td><td class="section-name">项目经历</td></tr></table>
+            ${projects}
+          </div>
+
+          <div class="section">
+            <table class="section-title" cellspacing="0" cellpadding="0"><tr><td class="section-index">05</td><td class="section-name">教育经历</td></tr></table>
+            ${educations}
+          </div>
+        </div>
+      </body>
+    </html>
+  `
+}
+
 function wait(ms) {
   return new Promise((resolve) => {
     previewTimer = window.setTimeout(resolve, ms)
@@ -492,22 +731,7 @@ async function previewResume() {
 function exportWord() {
   try {
     const fileName = `${buildExportName()}.doc`
-    const html = `
-      <html>
-        <head>
-          <meta charset="UTF-8" />
-          <style>
-            body { font-family: "Microsoft YaHei", sans-serif; color: #1b2a2f; line-height: 1.7; }
-            h1 { font-size: 28px; margin: 0; }
-            h2 { border-bottom: 1px solid #9aa8a9; font-size: 18px; padding-bottom: 6px; }
-            .meta { color: #5d6b6e; margin: 8px 0 24px; }
-            .item { margin-bottom: 14px; }
-            .row { display: flex; justify-content: space-between; font-weight: 700; }
-          </style>
-        </head>
-        <body>${resumePaper.value.innerHTML}</body>
-      </html>
-    `
+    const html = buildWordHtml()
     const blob = new Blob(['\ufeff', html], { type: 'application/msword;charset=utf-8' })
     downloadBlob(blob, fileName)
   } catch (error) {
