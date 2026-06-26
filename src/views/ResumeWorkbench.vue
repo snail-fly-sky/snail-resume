@@ -38,7 +38,7 @@
           type="button"
           @click="selectResume(resume.id)"
         >
-          <span>{{ resume.title }}</span>
+          <span>{{ getResumeTitle(resume) }}</span>
           <small>{{ resume.basics.name }}</small>
         </button>
       </div>
@@ -57,7 +57,7 @@
       <header class="workspace-toolbar">
         <div>
           <p class="eyebrow">当前编辑</p>
-          <h2>{{ currentResume.title }}</h2>
+          <h2>{{ getResumeTitle(currentResume) }}</h2>
         </div>
         <div class="toolbar-actions">
           <button class="icon-button" type="button" title="复制简历" @click="duplicateResume">
@@ -95,35 +95,39 @@
             </div>
             <label>
               简历名称
-              <input v-model="currentResume.title" type="text" />
+              <input v-model="currentResume.title" type="text" placeholder="例如：前端开发工程师简历" />
             </label>
             <div class="two-columns">
               <label>
                 姓名
-                <input v-model="currentResume.basics.name" type="text" />
+                <input v-model="currentResume.basics.name" type="text" placeholder="请输入姓名" />
               </label>
               <label>
                 求职方向
-                <input v-model="currentResume.basics.role" type="text" />
+                <input v-model="currentResume.basics.role" type="text" placeholder="例如：Vue 前端工程师" />
               </label>
             </div>
             <div class="two-columns">
               <label>
                 邮箱
-                <input v-model="currentResume.basics.email" type="email" />
+                <input v-model="currentResume.basics.email" type="email" placeholder="例如：name@example.com" />
               </label>
               <label>
                 手机
-                <input v-model="currentResume.basics.phone" type="tel" />
+                <input v-model="currentResume.basics.phone" type="tel" placeholder="例如：138 0000 0000" />
               </label>
             </div>
             <label>
               所在城市
-              <input v-model="currentResume.basics.city" type="text" />
+              <input v-model="currentResume.basics.city" type="text" placeholder="例如：上海" />
             </label>
             <label>
               个人摘要
-              <textarea v-model="currentResume.basics.summary" rows="4"></textarea>
+              <textarea
+                v-model="currentResume.basics.summary"
+                rows="4"
+                placeholder="概括你的经验年限、方向、核心能力和优势"
+              ></textarea>
             </label>
           </section>
 
@@ -133,7 +137,7 @@
             </div>
             <label>
               用逗号分隔
-              <textarea v-model="currentResume.skills" rows="3"></textarea>
+              <textarea v-model="currentResume.skills" rows="3" placeholder="例如：Vue3, JavaScript, Vite"></textarea>
             </label>
           </section>
 
@@ -148,26 +152,26 @@
               <div class="two-columns">
                 <label>
                   公司
-                  <input v-model="item.company" type="text" />
+                  <input v-model="item.company" type="text" placeholder="请输入公司名称" />
                 </label>
                 <label>
                   职位
-                  <input v-model="item.position" type="text" />
+                  <input v-model="item.position" type="text" placeholder="请输入职位名称" />
                 </label>
               </div>
               <div class="two-columns">
                 <label>
                   开始时间
-                  <input v-model="item.start" type="text" />
+                  <input v-model="item.start" type="text" placeholder="例如：2022.04" />
                 </label>
                 <label>
                   结束时间
-                  <input v-model="item.end" type="text" />
+                  <input v-model="item.end" type="text" placeholder="例如：至今" />
                 </label>
               </div>
               <label>
                 工作内容
-                <textarea v-model="item.description" rows="4"></textarea>
+                <textarea v-model="item.description" rows="4" placeholder="描述职责、成果和关键数据"></textarea>
               </label>
             </article>
             <button class="entry-add-bottom" type="button" aria-label="Add experience" @click="resumeStore.addExperience">
@@ -186,16 +190,16 @@
               <div class="two-columns">
                 <label>
                   项目名称
-                  <input v-model="item.name" type="text" />
+                  <input v-model="item.name" type="text" placeholder="请输入项目名称" />
                 </label>
                 <label>
                   角色
-                  <input v-model="item.role" type="text" />
+                  <input v-model="item.role" type="text" placeholder="例如：前端负责人" />
                 </label>
               </div>
               <label>
                 项目描述
-                <textarea v-model="item.description" rows="4"></textarea>
+                <textarea v-model="item.description" rows="4" placeholder="描述项目背景、职责和结果"></textarea>
               </label>
             </article>
             <button class="entry-add-bottom" type="button" aria-label="Add project" @click="resumeStore.addProject">
@@ -214,21 +218,21 @@
               <div class="two-columns">
                 <label>
                   学校
-                  <input v-model="item.school" type="text" />
+                  <input v-model="item.school" type="text" placeholder="请输入学校名称" />
                 </label>
                 <label>
                   专业
-                  <input v-model="item.major" type="text" />
+                  <input v-model="item.major" type="text" placeholder="请输入专业名称" />
                 </label>
               </div>
               <div class="two-columns">
                 <label>
                   学历
-                  <input v-model="item.degree" type="text" />
+                  <input v-model="item.degree" type="text" placeholder="例如：本科" />
                 </label>
                 <label>
                   时间
-                  <input v-model="item.period" type="text" />
+                  <input v-model="item.period" type="text" placeholder="例如：2019.09 - 2023.06" />
                 </label>
               </div>
             </article>
@@ -345,6 +349,7 @@ const isPreviewAnimating = ref(false)
 let previewTimer = 0
 let previewAnimationTimer = 0
 const previewAnimationMs = 260
+const untitledResumeName = '未命名简历'
 
 function touchResume() {
   resumeStore.touchCurrentResume()
@@ -356,6 +361,14 @@ function toggleSidebar() {
 
 function selectResume(id) {
   resumeStore.setCurrentId(id)
+}
+
+function getResumeTitle(resume) {
+  const title = resume.title.trim()
+  if (title.length === 0) {
+    return untitledResumeName
+  }
+  return title
 }
 
 function createResume() {

@@ -9,7 +9,7 @@ function makeId() {
 function createSeedResume() {
   return {
     id: makeId(),
-    title: '前端工程师简历',
+    title: '简历生成工作台',
     updatedAt: new Date().toISOString(),
     basics: {
       name: '张明',
@@ -61,17 +61,17 @@ function createSeedResume() {
 function createBlankResume() {
   return {
     id: makeId(),
-    title: '未命名简历',
+    title: '',
     updatedAt: new Date().toISOString(),
     basics: {
-      name: '新简历',
-      role: '求职方向',
-      email: 'email@example.com',
-      phone: '手机号码',
-      city: '城市',
-      summary: '请填写个人摘要。'
+      name: '',
+      role: '',
+      email: '',
+      phone: '',
+      city: '',
+      summary: ''
     },
-    skills: 'Vue3, JavaScript',
+    skills: '',
     experiences: [],
     projects: [],
     educations: []
@@ -162,11 +162,11 @@ export const useResumeStore = defineStore('resume', {
     addExperience() {
       this.currentResume.experiences.push({
         id: makeId(),
-        company: '公司名称',
-        position: '职位名称',
-        start: '开始时间',
-        end: '结束时间',
-        description: '请填写工作内容。'
+        company: '',
+        position: '',
+        start: '',
+        end: '',
+        description: ''
       })
       this.touchCurrentResume()
     },
@@ -177,9 +177,9 @@ export const useResumeStore = defineStore('resume', {
     addProject() {
       this.currentResume.projects.push({
         id: makeId(),
-        name: '项目名称',
-        role: '项目角色',
-        description: '请填写项目描述。'
+        name: '',
+        role: '',
+        description: ''
       })
       this.touchCurrentResume()
     },
@@ -190,10 +190,10 @@ export const useResumeStore = defineStore('resume', {
     addEducation() {
       this.currentResume.educations.push({
         id: makeId(),
-        school: '学校名称',
-        major: '专业名称',
-        degree: '学历',
-        period: '时间范围'
+        school: '',
+        major: '',
+        degree: '',
+        period: ''
       })
       this.touchCurrentResume()
     },

@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import HomePage from '../views/HomePage.vue'
 import ResumeWorkbench from '../views/ResumeWorkbench.vue'
 
 const router = createRouter({
@@ -7,6 +8,11 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
+      component: HomePage
+    },
+    {
+      path: '/workbench',
+      name: 'workbench',
       component: ResumeWorkbench
     },
     {
